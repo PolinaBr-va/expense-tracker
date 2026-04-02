@@ -1,0 +1,16 @@
+.settings-page {
+  display: flex;
+  margin: 0 auto;
+  padding: 0 20px;
+  justify-content: center;
+
+  .settings-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+
+    h2 {
+      color: var(--heading-color);
+    }
+  }
+}

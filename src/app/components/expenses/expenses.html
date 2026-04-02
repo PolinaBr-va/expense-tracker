@@ -1,0 +1,273 @@
+<div class="home-page">
+  <div class="home-header">
+    <form class="home-form" [formGroup]="componentForm">
+      <label id="categorySelectLabel"></label>
+      <p-select
+        inputId="categorySelect"
+        formControlName="category"
+        ariaLabelledBy="categorySelectLabel"
+        [options]="filterCategories$ | async"
+        optionLabel="name"
+        placeholder="Выберите категорию"
+        showClear="true"
+        class="select-category"
+      >
+        <ng-template pTemplate="item" let-category>
+          <div flex items-center gap-2>
+            <!-- <span>{{ category.icon }}</span> -->
+            <span>{{ category.name }}</span>
+          </div>
+          <p-button
+            class="btn-tash"
+            title="Удалить категорию из списка"
+            icon="pi pi-trash"
+            variant="text"
+            severity="secondary"
+            pTooltip="Удалить категорию"
+            tooltipStyleClass="my-tooltip"
+            (onClick)="deleteCategory(category); $event.stopPropagation()"
+          />
+        </ng-template>
+
+        <ng-template pTemplate="selectedItem" let-category>
+          @if (category) {
+            <div flex items-center gap-2>
+              <!-- <span>{{ category.icon }}</span> -->
+              <span>{{ category.name }}</span>
+            </div>
+          }
+        </ng-template>
+      </p-select>
+
+      <p-button
+        variant="outlined"
+        severity="secondary"
+        label="Добавить категорию"
+        icon="pi pi-plus"
+        (onClick)="showAddCategoryDialog = true"
+      />
+    </form>
+  </div>
+
+  <div class="home-body">
+    <div class="balance-box">
+      <div class="box-container">
+        <div class="box-content">
+          <p-button
+            variant="outlined"
+            severity="secondary"
+            icon="pi pi-plus"
+            (onClick)="openTransactionDialog(TransactionType.Income)"
+            pTooltip="Добавить доходы"
+            tooltipPosition="top"
+            tooltipStyleClass="my-tooltip"
+          />
+          <span>Доходы:</span>
+
+          @let stats = (stats$ | async) ?? {income: 0, expense: 0, balance: 0};
+
+          <span class="income">{{
+            stats.income | currency: 'RUB' : 'symbol-narrow' : '1.0-1'
+          }}</span>
+        </div>
+      </div>
+
+      <div class="box-container">
+        <div class="box-content">
+          <p-button
+            variant="outlined"
+            severity="secondary"
+            icon="pi pi-plus"
+            (onClick)="openTransactionDialog(TransactionType.Expense)"
+            pTooltip="Добавить расходы"
+            tooltipPosition="top"
+            tooltipStyleClass="my-tooltip"
+          />
+          <span>Расходы:</span>
+          <span class="expense">{{
+            stats.expense| currency: 'RUB' : 'symbol-narrow' : '1.0-1'
+          }}</span>
+        </div>
+      </div>
+
+      <div class="box-container">
+        <div class="box-content">
+          <i class="pi pi-credit-card"></i>
+          <span>Баланс:</span>
+          <span [ngClass]="stats.balance >= 0 ? 'income' : 'expense'">
+            {{ stats.balance | currency: 'RUB' : 'symbol-narrow' : '1.0-1' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    @let transactions = (filteredTransactions$ | async) ?? [];
+    @if (transactions.length) {
+      <p-table
+        [value]="transactions"
+        sortField="date"
+        [sortOrder]="-1"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template #header>
+          <tr>
+            <th>Описание</th>
+            <th pSortableColumn="amount">
+              Расходы
+              <p-sortIcon field="amount"></p-sortIcon>
+            </th>
+            <th pSortableColumn="type">Тип</th>
+            <th pSortableColumn="category">Категория</th>
+            <th pSortableColumn="date">
+              Дата
+              <p-sortIcon field="date"></p-sortIcon>
+            </th>
+            <th>Действия</th>
+          </tr>
+        </ng-template>
+        <ng-template #body let-transaction>
+          <tr>
+            <td>{{ transaction.description }}</td>
+            <td>{{ transaction.amount | number: '1.0-1' }} ₽</td>
+            <td>
+              {{ transaction.type }}
+            </td>
+            <td>{{ transaction.category }}</td>
+            <td>{{ transaction.date | date: 'dd.MM.yyyy' }}</td>
+            <td class="td-btn">
+              <p-button
+                icon="pi pi-trash"
+                severity="danger"
+                variant="outlined"
+                pTooltip="Удалить транзакцию"
+                tooltipPosition="top"
+                tooltipStyleClass="my-tooltip"
+                (onClick)="deleteTransaction(transaction)"
+              />
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    }
+  </div>
+</div>
+
+<p-dialog
+  header="Новая категория"
+  [modal]="true"
+  [(visible)]="showAddCategoryDialog"
+  [style]="{ width: '25rem' }"
+  class="category-dialog"
+>
+  <div class="p-fluid">
+    <div class="field">
+      <label for="categoryName">Название:</label>
+      <input
+        class="flex-auto"
+        id="categoryName"
+        type="text"
+        pInputText
+        [(ngModel)]="newCategory.name"
+      />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button class="category-btn" label="Отмена" icon="pi pi-times" (onClick)="showAddCategoryDialog = false" />
+    <p-button
+      class="category-btn"
+      label="Сохранить"
+      icon="pi pi-check"
+      (onClick)="addCategory()"
+      [disabled]="!newCategory.name"
+    />
+  </ng-template>
+</p-dialog>
+
+<p-dialog
+  header="Добавить транзакцию"
+  [modal]="true"
+  [(visible)]="showAddTransactionDialog"
+  [style]="{ width: '25rem' }"
+  class="transaction-dialog"
+>
+  <div class="p-fluid">
+    <div class="field">
+      <label id="transactionTypeLabel">Тип</label>
+      <p-select
+        inputId="transactionType"
+        ariaLabelledBy="transactionTypeLabel"
+        [options]="transactionTypes"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="newTransaction.type"
+      />
+    </div>
+    <div class="field">
+      <label for="transactionDescription">Описание</label>
+      <input
+        id="transactionDescription"
+        type="text"
+        pInputText
+        [(ngModel)]="newTransaction.description"
+      />
+    </div>
+    <div class="field">
+      <label id="transactionAmountLabel">Сумма</label>
+      <p-inputNumber
+        inputId="transactionAmount"
+        ariaLabelledBy="transactionAmountLabel"
+        [(ngModel)]="newTransaction.amount"
+        mode="currency"
+        currency="RUB"
+        locale="ru-RU"
+      />
+    </div>
+    @if (newTransaction.type === TransactionType.Expense) {
+      <div class="field">
+        <label id="transactionCategoryLabel">Категория</label>
+        @let categories = (categories$ | async) ?? [];
+        @if (categories.length) {
+          <p-select
+            inputId="transactionCategory"
+            ariaLabelledBy="transactionCategoryLabel"
+            [options]="categories"
+            optionLabel="name"
+            placeholder="Выберите категорию"
+            [(ngModel)]="selectedCategory"
+            appendTo="body"
+            [panelStyle]="{ 'max-height': '300px' }"
+          >
+            <ng-template pTemplate="item" let-cat>
+              <div flex items-center gap-2>
+                <!-- <span>{{ cat.icon }}</span> -->
+                <span>{{ cat.name }}</span>
+              </div>
+            </ng-template>
+          </p-select>
+        }
+      </div>
+    }
+
+    <div class="field">
+      <label id="transactionDateLabel">Дата</label>
+      <p-datepicker
+        inputId="transactionDate"
+        ariaLabelledBy="transactionDateLabel"
+        [(ngModel)]="newTransaction.date"
+        dateFormat="dd.mm.yy"
+        appendTo="body"
+      />
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Отмена" icon="pi pi-times" (onClick)="showAddTransactionDialog = false" />
+    <p-button
+      label="Сохранить"
+      icon="pi pi-check"
+      (onClick)="addTransaction()"
+      [disabled]="!isTransactionValid()"
+    />
+  </ng-template>
+</p-dialog>

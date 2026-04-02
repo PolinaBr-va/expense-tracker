@@ -1,0 +1,110 @@
+{
+  "transactions": [
+    {
+      "id": "1",
+      "description": "Продукты в супермаркете",
+      "amount": 3500,
+      "type": "Расходы",
+      "category": "Еда",
+      "categoryId": "cat1",
+      "date": "2026-02-15T12:30:00.000Z"
+    },
+    {
+      "id": "2",
+      "description": "Зарплата",
+      "amount": 75000,
+      "type": "Доходы",
+      "category": "Работа",
+      "categoryId": "cat4",
+      "date": "2026-02-10T08:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "description": "Такси",
+      "amount": 450,
+      "type": "Расходы",
+      "category": "Транспорт",
+      "categoryId": "cat2",
+      "date": "2026-02-14T22:15:00.000Z"
+    },
+    {
+      "id": "4",
+      "description": "Кофе с подругой",
+      "amount": 800,
+      "type": "Расходы",
+      "category": "Кафе",
+      "categoryId": "cat5",
+      "date": "2026-02-16T14:45:00.000Z"
+    },
+    {
+      "id": "5",
+      "description": "Фриланс-проект",
+      "amount": 12000,
+      "type": "Доходы",
+      "category": "Работа",
+      "categoryId": "cat4",
+      "date": "2026-02-05T16:20:00.000Z"
+    },
+    {
+      "id": "6",
+      "description": "Оплата интернета",
+      "amount": 1200,
+      "type": "Расходы",
+      "category": "Коммуналка",
+      "categoryId": "cat3",
+      "date": "2026-02-12T10:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "description": "Билеты в кино",
+      "amount": 600,
+      "type": "Расходы",
+      "category": "Развлечения",
+      "categoryId": "cat6",
+      "date": "2026-02-16T19:30:00.000Z"
+    },
+    {
+      "id": "8",
+      "description": "Курица гриль",
+      "amount": 350,
+      "type": "Расходы",
+      "category": "Еда",
+      "categoryId": "cat1",
+      "date": "2026-02-16T20:10:00.000Z"
+    },
+    {
+      "id": "9",
+      "description": "Возврат долга",
+      "amount": 1500,
+      "type": "Доходы",
+      "category": "Прочее",
+      "categoryId": "cat7",
+      "date": "2026-02-14T11:00:00.000Z"
+    },
+    {
+      "id": "10",
+      "description": "Абонемент в спортзал",
+      "amount": 2500,
+      "type": "Расходы",
+      "category": "Спорт",
+      "categoryId": "cat8",
+      "date": "2026-02-01T09:30:00.000Z"
+    }
+  ],
+  "categories": [
+    { "id": "cat1", "name": "Еда", "icon": "🍔"},
+    { "id": "cat2", "name": "Транспорт", "icon": "⛽"},
+    { "id": "cat3", "name": "Коммуналка", "icon": "💡"},
+    { "id": "cat4", "name": "Работа", "icon": "💼"},
+    { "id": "cat5", "name": "Кафе", "icon": "☕"},
+    { "id": "cat6", "name": "Развлечения", "icon": "🎬"},
+    { "id": "cat7", "name": "Прочее", "icon": "📦"},
+    { "id": "cat8", "name": "Спорт", "icon": "🏋️"}
+  ],
+  "monthlyBudgets": [
+    { "id": "budget1", "month": 2, "year": 2026, "categoryId": "cat1", "limit": 10000 },
+    { "id": "budget2", "month": 2, "year": 2026, "categoryId": "cat2", "limit": 5000 },
+    { "id": "budget3", "month": 2, "year": 2026, "categoryId": "cat3", "limit": 4000 },
+    { "id": "budget4", "month": 2, "year": 2026, "categoryId": "cat6", "limit": 3000 }
+  ]
+}

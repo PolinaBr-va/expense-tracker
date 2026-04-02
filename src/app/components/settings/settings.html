@@ -1,0 +1,12 @@
+<div class="settings-page">
+  <div class="settings-container">
+    <h2>Настройки темы</h2>
+    <p-selectButton
+      [options]="themeOptions"
+      [(ngModel)]="selectedTheme"
+      optionLabel="label"
+      optionValue="value"
+      (ngModelChange)="changeTheme()"
+    ></p-selectButton>
+  </div>
+</div>

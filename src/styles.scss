@@ -1,1 +1,125 @@
-/* You can add global styles to this file, and also import other style files */
+html {
+  color-scheme: light dark;
+}
+
+html.p-dark {
+  .p-tooltip-text {
+    background: #fff;
+    color: #324660;
+  }
+
+  .p-tooltip-arrow {
+    border-top-color: #fff !important;
+  }
+
+  .p-button-outlined.p-button-secondary {
+    color: #fff;
+  }
+
+  .select-category {
+    border: 1px solid #fff !important;
+  }
+
+  .select-category:hover {
+    border: 1px solid #7781b0 !important;
+  }
+
+  .p-select-label.p-placeholder,
+  .p-select-dropdown {
+    color: #fff;
+  }
+
+  .category-dialog .p-button:not(.p-button-text) {
+    background: #7781b0 !important;
+    border-color: #7781b0 !important;
+    color: #fff !important;
+  }
+
+  .category-dialog .p-button:hover:not(.p-button-text) {
+    background: #5f6aa0 !important;
+  }
+
+  .transaction-dialog .p-button:not(.p-button-text) {
+    background: #7781b0 !important;
+    border-color: #7781b0 !important;
+    color: #fff !important;
+  }
+
+  .transaction-dialog .p-button:hover:not(.p-button-text) {
+    background: #5f6aa0 !important;
+  }
+
+  .transaction-dialog .p-select {
+    background-color: #fff;
+  }
+
+  .p-select-option.p-select-option-selected {
+    background-color: #5f6aa0;
+    color: #fff;
+  }
+
+  .p-select-option.p-select-option-selected.p-focus {
+    background-color: #5f6aa0;
+    color: #fff;
+  }
+  
+}
+
+* {
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter_Bold';
+
+  background: var(--p-primary-50);
+  color: var(--p-text-color);
+}
+
+.p-inputtext {
+  width: 100%;
+}
+
+.p-tooltip {
+  .p-tooltip-text {
+    background: #677582;
+    opacity: 0.9;
+    color: #fff;
+    border-radius: 6px;
+    padding: 9px 13px;
+    font-size: 13px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  }
+
+  .p-tooltip-arrow {
+    border-top-color: #677582 !important;
+  }
+}
+
+@font-face {
+  font-family: 'Inter_Bold';
+  src: url(./assets/fonts/Inter-Bold.woff2) format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open-Sans';
+  src: url(./assets/fonts/OpenSans-Regular.woff2) format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Open-Sans-Ligth';
+  src: url(./assets/fonts/OpenSans-Light.woff2) format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}

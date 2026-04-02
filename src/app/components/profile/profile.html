@@ -1,0 +1,38 @@
+<div class="profile-page">
+  <div class="profile-container">
+    <h2>Ваш профиль</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="profile-form">
+      <div class="form-group">
+        <div class="field-wrapper">
+          <p-floatlabel variant="on" class="field">
+            <input pInputText pSize="large" id="fullName" formControlName="fullName" autocomplete="name" />
+            <label for="fullName">Введите имя:</label>
+          </p-floatlabel>
+        </div>
+        <div class="field-wrapper">
+          <p-floatlabel variant="on" class="field">
+            <input pInputText pSize="large" id="email" formControlName="email" autocomplete="email" />
+            <label for="email">Введите почту:</label>
+          </p-floatlabel>
+        </div>
+        <div class="field-wrapper">
+          <p-floatlabel variant="on" class="field">
+            <input
+              id="phone"
+              class="w-full"
+              pSize="large"
+              pInputText
+              pInputMask="(999) 999-9999"
+              formControlName="phone"
+              autocomplete="phone"
+              placeholder="+7(xxx) xxx-xxxx"
+            />
+            <label for="phone">Введите номер телефона:</label>
+          </p-floatlabel>
+        </div>
+      </div>
+      <button type="submit" [disabled]="profileForm.invalid" class="login-btn">Войти</button>
+    </form>
+  </div>
+</div>

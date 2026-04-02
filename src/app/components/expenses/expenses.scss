@@ -1,0 +1,108 @@
+.home-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+
+  .home-header {
+    display: flex;
+    margin: 30px auto;
+    font-family: 'Open-Sans-Ligth';
+
+    .home-form {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+
+  .home-body {
+    width: 100%;
+    font-family: 'Open-Sans-Ligth';
+    color: var(--p-text-muted-color);
+    background-color: var(--p-primary-50);
+    .balance-box {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      font-family: 'Open-Sans-Ligth';
+      color: var(--p-text-muted-color);
+
+      .box-container {
+        display: flex;
+
+        .box-content {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          padding: 7px;
+          border: 1px solid var(--p-content-border-color);
+          border-radius: 6px;
+        }
+      }
+    }
+  }
+}
+
+:host ::ng-deep .p-select-option {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+:host ::ng-deep .p-dialog {
+  display: flex;
+}
+
+:host ::ng-deep .p-dialog-header {
+  display: flex;
+  justify-content: space-between;
+  padding-inline: 20px;
+  padding-block: 10px;
+}
+
+.field {
+  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+:host ::ng-deep .p-select {
+  background-color: var(--p-primary-50);
+}
+
+// :host ::ng-deep .p-select-option.p-select-option-selected {
+//   background-color: transparent;
+//   color: #334155;
+// }
+
+:host ::ng-deep .p-datatable-thead > tr > th.p-datatable-column-sorted {
+  color: var(--p-primary-50);
+  background: var(--heading-color);
+}
+
+:host ::ng-deep .p-datatable-thead > tr > th.p-datatable-column-sorted .p-datatable-sort-icon {
+  color: var(--p-primary-50);
+}
+
+:host ::ng-deep .p-datatable-thead > tr > th {
+  color: var(--p-text-muted-color);
+  background-color: var(--p-primary-50);
+}
+
+:host ::ng-deep .p-datatable-tbody > tr > td {
+  color: var(--p-text-muted-color);
+}
+
+:host ::ng-deep .p-datatable-thead > tr > th {
+  border-width: 1px 0 1px 0;
+}
+
+:host ::ng-deep .p-datatable-tbody > tr > td {
+  background-color: var(--p-primary-50);
+}
+
+

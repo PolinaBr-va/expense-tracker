@@ -1,0 +1,75 @@
+<div class="analyticts-page">
+  @let vm = vm$ | async;
+  @if (vm) {
+    <div class="analyticts-header">
+      <h1>Аналитика в графиках и диаграммах</h1>
+
+      <p-selectButton
+        [options]="periodOptions"
+        [(ngModel)]="selectedPeriod"
+        optionLabel="label"
+        optionValue="value"
+        (onChange)="onPeriodChange(selectedPeriod)"
+      ></p-selectButton>
+    </div>
+
+    <div class="stats-cards">
+      <div class="stats-card balance">
+        <h4>Баланс</h4>
+        <p>{{ vm.analytics.balance | number: '1.0-1' }} ₽</p>
+      </div>
+
+      <div class="stats-card">
+        <h4>Доходы</h4>
+        <p>{{ vm.analytics.income | number: '1.0-1' }} ₽</p>
+      </div>
+
+      <div class="stats-card">
+        <h4>Расходы</h4>
+        <p>{{ vm.analytics.expense | number: '1.0-1' }} ₽</p>
+      </div>
+    </div>
+
+    <div class="metrics-cards">
+      <div class="stats-card">
+        <h4>Средний расход в месяц</h4>
+        <p>{{ vm.average.averageMonthlyExpense | number: '1.0-1' }} ₽</p>
+      </div>
+
+      <div class="stats-card top-categories">
+        <h4>Топ расходов</h4>
+        <ul>
+          @for (category of vm.analytics.topCategories; track category.name; let i = $index) {
+            <li>
+              <span class="rank">{{ i + 1 }} .</span>
+              <span class="name">{{ category.name }}</span>
+              <span class="amount"> {{ category.amount | number: '1.0-0' }} ₽ </span>
+            </li>
+          }
+        </ul>
+      </div>
+
+      <div class="stats-card saving-rating">
+        <h4>Норма сбережений</h4>
+        <p>{{ vm.analytics.savingRate | number: '1.0-1' }} %</p>
+      </div>
+    </div>
+
+    <div class="analyticts-grid">
+      <div class="analyticts-card pie">
+        <h3>Расходы по категориям</h3>
+        <p-chart type="pie" [data]="pieData$ | async" [options]="pieOptions"></p-chart>
+      </div>
+
+      <div class="analyticts-card bar">
+        <h3>Доходы и расходы</h3>
+        <p-chart type="bar" [data]="barData$ | async" [options]="barOptions" />
+      </div>
+
+      <div class="analyticts-card line">
+        <h3>Динамика доходов и расходов по месяцам</h3>
+        <p-chart type="line" [data]="lineData$ | async" [options]="lineOptions" />
+      </div>
+    </div>
+  }
+</div>
