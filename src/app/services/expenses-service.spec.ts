@@ -32,12 +32,11 @@ fdescribe('ExpensesService', () => {
 
   const fixedDate = new Date('2024-01-01');
 
-  it('should load categories on init', () => {
+  it('should load categories on init', fakeAsync(() => {
     const mockCategories: Category[] = [{ id: 1, name: 'Test' }];
 
-    service.categories$.pipe(take(1)).subscribe((categories) => {
-      expect(categories).toEqual(mockCategories);
-    });
+    let categoriesResult: Category[] | undefined;
+    service.categories$.pipe(take(2)).subscribe(cats => categoriesResult = cats);
 
     const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
     const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
@@ -47,7 +46,11 @@ fdescribe('ExpensesService', () => {
 
     categoriesReq.flush(mockCategories);
     transactionsReq.flush([]);
-  });
+
+    tick();
+
+    expect(categoriesResult).toEqual(mockCategories);
+  }));
 
   it('should handle error when loading categories', () => {
     const consoleSpy = spyOn(console, 'error');
@@ -63,13 +66,14 @@ fdescribe('ExpensesService', () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it('should load transactions on init', () => {
+  it('should load transactions on init', fakeAsync(() => {
     const mockTransactions: Transaction[] = [
       { id: 1, description: 'test', amount: 1000, type: TransactionType.Expense, date: fixedDate },
     ];
-    service.transactions$.pipe(take(1)).subscribe((transactions) => {
-      expect(transactions).toEqual(mockTransactions);
-    });
+
+    let transactionsResult: Transaction[] | undefined;
+
+    service.transactions$.pipe(take(2)).subscribe(trans => transactionsResult = trans);
 
     const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
     const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
@@ -79,7 +83,11 @@ fdescribe('ExpensesService', () => {
 
     categoriesReq.flush([]);
     transactionsReq.flush(mockTransactions);
-  });
+    
+    tick();
+
+    expect(transactionsResult).toEqual(mockTransactions);
+  }));
 
   it('should handle error when loading transactions', () => {
     const consoleSpy = spyOn(console, 'error');
