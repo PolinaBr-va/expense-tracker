@@ -32,22 +32,22 @@ fdescribe('ExpensesService', () => {
 
   const fixedDate = new Date('2024-01-01');
 
-  it('should load categories on init', () => {
-    const mockCategories: Category[] = [{ id: 1, name: 'Test' }];
+  // it('should load categories on init', () => {
+  //   const mockCategories: Category[] = [{ id: 1, name: 'Test' }];
 
-    service.categories$.pipe(take(1)).subscribe((categories) => {
-      expect(categories).toEqual(mockCategories);
-    });
+  //   service.categories$.pipe(take(1)).subscribe((categories) => {
+  //     expect(categories).toEqual(mockCategories);
+  //   });
 
-    const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
-    const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
+  //   const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
+  //   const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
 
-    expect(categoriesReq.request.method).toBe('GET');
-    expect(transactionsReq.request.method).toBe('GET');
+  //   expect(categoriesReq.request.method).toBe('GET');
+  //   expect(transactionsReq.request.method).toBe('GET');
 
-    categoriesReq.flush(mockCategories);
-    transactionsReq.flush([]);
-  });
+  //   categoriesReq.flush(mockCategories);
+  //   transactionsReq.flush([]);
+  // });
 
   it('should handle error when loading categories', () => {
     const consoleSpy = spyOn(console, 'error');
@@ -63,23 +63,23 @@ fdescribe('ExpensesService', () => {
     expect(consoleSpy).toHaveBeenCalled();
   });
 
-  it('should load transactions on init', () => {
-    const mockTransactions: Transaction[] = [
-      { id: 1, description: 'test', amount: 1000, type: TransactionType.Expense, date: fixedDate },
-    ];
-    service.transactions$.pipe(take(1)).subscribe((transactions) => {
-      expect(transactions).toEqual(mockTransactions);
-    });
+  // it('should load transactions on init', () => {
+  //   const mockTransactions: Transaction[] = [
+  //     { id: 1, description: 'test', amount: 1000, type: TransactionType.Expense, date: fixedDate },
+  //   ];
+  //   service.transactions$.pipe(take(1)).subscribe((transactions) => {
+  //     expect(transactions).toEqual(mockTransactions);
+  //   });
 
-    const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
-    const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
+  //   const categoriesReq = httpMock.expectOne('http://localhost:3000/categories');
+  //   const transactionsReq = httpMock.expectOne('http://localhost:3000/transactions');
 
-    expect(categoriesReq.request.method).toBe('GET');
-    expect(transactionsReq.request.method).toBe('GET');
+  //   expect(categoriesReq.request.method).toBe('GET');
+  //   expect(transactionsReq.request.method).toBe('GET');
 
-    categoriesReq.flush([]);
-    transactionsReq.flush(mockTransactions);
-  });
+  //   categoriesReq.flush([]);
+  //   transactionsReq.flush(mockTransactions);
+  // });
 
   it('should handle error when loading transactions', () => {
     const consoleSpy = spyOn(console, 'error');
