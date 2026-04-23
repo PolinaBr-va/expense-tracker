@@ -7,7 +7,7 @@ import { Transaction, TransactionType } from '../models/transaction';
 import { Category } from '../models/category';
 import { take } from 'rxjs';
 
-fdescribe('ExpensesService', () => {
+describe('ExpensesService', () => {
   let service: ExpensesService;
   let httpMock: HttpTestingController;
 
