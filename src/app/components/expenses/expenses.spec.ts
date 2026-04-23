@@ -8,7 +8,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { Transaction, TransactionType } from '../../models/transaction';
 import { Category } from '../../models/category';
 
-fdescribe('Expenses', () => {
+describe('Expenses', () => {
   let component: ExpensesComponent;
   let fixture: ComponentFixture<ExpensesComponent>;
   let expensesServiceMock: any;
